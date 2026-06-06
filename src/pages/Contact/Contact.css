@@ -1,0 +1,50 @@
+.contact-page{
+  padding:120px 0;
+}
+
+.contact-card{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 4px 15px rgba(0,0,0,.1);
+  height:100%;
+}
+
+.contact-card a{
+  text-decoration:none;
+  color:#c9a227;
+  font-weight:600;
+}
+
+.contact-form{
+  background:white;
+  padding:35px;
+  border-radius:20px;
+  box-shadow:0 4px 15px rgba(0,0,0,.1);
+}
+
+.office-info{
+  background:white;
+  padding:35px;
+  border-radius:20px;
+  box-shadow:0 4px 15px rgba(0,0,0,.1);
+}
+
+.map-placeholder{
+  height:250px;
+  background:#eee;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  border-radius:15px;
+  margin-top:20px;
+}
+
+.social-section{
+  margin-top:25px;
+}
+
+.social-section a{
+  color:#c9a227;
+}

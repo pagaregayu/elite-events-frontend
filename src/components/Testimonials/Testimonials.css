@@ -1,0 +1,13 @@
+.testimonial-section{
+  padding:80px 0;
+  background:#f5f5f5;
+}
+
+.testimonial-card{
+  background:white;
+  max-width:700px;
+  margin:auto;
+  padding:40px;
+  border-radius:15px;
+  text-align:center;
+}
