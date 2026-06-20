@@ -1,0 +1,35 @@
+.review-section {
+  padding: 80px 0;
+  background: #f8f9fa;
+}
+
+.review-title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-weight: 700;
+}
+
+.review-card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 3px 15px rgba(0,0,0,.1);
+  height: 100%;
+  transition: .3s;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+}
+
+.review-card h4 {
+  margin-bottom: 10px;
+}
+
+.stars {
+  margin-bottom: 15px;
+}
+
+.review-card p {
+  color: #555;
+}

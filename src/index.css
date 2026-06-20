@@ -1,3 +1,4 @@
+@import "tailwindcss";
 * {
   margin: 0;
   padding: 0;
@@ -31,4 +32,7 @@ body {
 
 .btn-gold:hover {
   background: #b58d15;
+}
+a {
+  text-decoration: none !important;
 }

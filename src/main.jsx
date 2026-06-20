@@ -7,9 +7,9 @@ import { AuthProvider } from "./context/AuthContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { NotificationProvider } from "./context/NotificationContext";
 import { BookingProvider } from "./context/BookingContext";
-
-import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 ReactDOM.createRoot(
   document.getElementById("root")

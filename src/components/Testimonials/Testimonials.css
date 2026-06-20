@@ -1,13 +1,99 @@
-.testimonial-section{
-  padding:80px 0;
-  background:#f5f5f5;
+.testimonials-section {
+
+  padding: 80px 0;
+  background: #f8f9fa;
+
 }
 
-.testimonial-card{
-  background:white;
-  max-width:700px;
-  margin:auto;
-  padding:40px;
-  border-radius:15px;
-  text-align:center;
+.section-title {
+
+  text-align: center;
+  margin-bottom: 50px;
+
+}
+
+.section-title h2 {
+
+  font-size: 42px;
+  font-weight: 700;
+  color: #222;
+
+}
+
+.section-title p {
+
+  color: #666;
+  margin-top: 10px;
+
+}
+
+.reviews-grid {
+
+  display: grid;
+
+  grid-template-columns:
+  repeat(auto-fit, minmax(320px, 1fr));
+
+  gap: 30px;
+
+}
+
+.review-card {
+
+  background: #fff;
+
+  border-radius: 20px;
+
+  padding: 30px;
+
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.08);
+
+  transition: 0.3s;
+
+  position: relative;
+
+}
+
+.review-card:hover {
+
+  transform: translateY(-8px);
+
+}
+
+.quote-icon {
+
+  font-size: 28px;
+  color: #ffc107;
+
+  margin-bottom: 15px;
+
+}
+
+.stars {
+
+  color: #ffc107;
+
+  margin-bottom: 15px;
+
+  font-size: 20px;
+
+}
+
+.review-card h3 {
+
+  font-size: 22px;
+
+  margin-bottom: 15px;
+
+  color: #222;
+
+}
+
+.review-card p {
+
+  color: #666;
+
+  line-height: 1.8;
+
 }

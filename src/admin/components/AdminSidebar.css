@@ -1,141 +1,337 @@
+/* AdminSidebar.css - Black & White Theme with Pink Accents */
+
 .sidebar {
   width: 260px;
   height: 100vh;
-  background: linear-gradient(180deg, #0f172a, #111827);
-  color: white;
+  background: #0a0a0a;
+  color: #ffffff;
   display: flex;
   flex-direction: column;
-  padding: 20px 15px;
+  padding: 24px 16px;
   overflow-y: auto;
+  position: relative;
+}
+
+/* Animated Gradient Border on Sidebar - Pink */
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ec4899, #f472b6, #fbcfe8, #f472b6, #ec4899);
+  background-size: 200% 100%;
+  animation: gradientMove 3s linear infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+/* Custom Scrollbar */
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #ec4899;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #f472b6;
 }
 
 /* HEADER */
 .sidebar-header {
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  margin-bottom: 20px;
+  border-bottom: 1px solid #1a1a1a;
+  margin-bottom: 24px;
+  animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .sidebar-header h2 {
   font-size: 20px;
   margin: 0;
-  font-weight: 600;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.sidebar-header h2 span {
+  color: #ec4899;
 }
 
 .sidebar-header p {
-  font-size: 12px;
-  color: #9ca3af;
-  margin-top: 5px;
+  font-size: 11px;
+  color: #888888;
+  margin-top: 6px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
-/* MENU */
+/* MENU CONTAINER */
 .sidebar-menu {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+  flex: 1;
 }
 
-/* LINK */
+/* LINK STYLES */
 .sidebar-link {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 12px 14px;
-  border-radius: 10px;
+  border-radius: 12px;
   text-decoration: none;
-  color: #cbd5e1;
-  font-size: 14px;
-  transition: all 0.25s ease;
-}
-
-/* ICON */
-.icon {
-  font-size: 16px;
-  width: 20px;
-}
-
-/* HOVER */
-.sidebar-link:hover {
-  background: rgba(59, 130, 246, 0.15);
   color: #ffffff;
-  transform: translateX(4px);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-/* ACTIVE STATE */
-.sidebar-link.active {
-  background: linear-gradient(90deg, #3b82f6, #6366f1);
-  color: white;
-  font-weight: 500;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+/* Ripple Effect on Click */
+.sidebar-link::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(236, 72, 153, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
 }
+
+.sidebar-link:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* Hover Animation */
+.sidebar-link:hover {
+  background: #1a1a1a;
+  color: #ffffff;
+  transform: translateX(6px) scale(1.02);
+}
+
+/* Icon Animation on Hover */
+.sidebar-link:hover .icon {
+  transform: rotate(5deg) scale(1.1);
+  color: #ec4899;
+}
+
+/* Icon Base */
+.icon {
+  font-size: 18px;
+  width: 22px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #888888;
+}
+
+/* ACTIVE STATE - Only active link has pink accent */
+.sidebar-link.active {
+  background: rgba(236, 72, 153, 0.1);
+  color: #ec4899;
+  font-weight: 600;
+  border-left: 3px solid #ec4899;
+  animation: activePulse 0.5s ease-out;
+}
+
+@keyframes activePulse {
+  0% {
+    transform: scale(0.98);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.sidebar-link.active .icon {
+  color: #ec4899;
+  animation: iconBounce 0.5s ease;
+}
+
+@keyframes iconBounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Notification Badge - Pink */
+.badge {
+  margin-left: auto;
+  padding: 2px 8px;
+  background: #ec4899;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  border-radius: 20px;
+  animation: badgePulse 2s infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+/* LOGOUT SECTION */
 .logout-section {
   margin-top: auto;
   padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid #1a1a1a;
+  animation: fadeInUp 0.5s ease-out;
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Logout Button - Red accent */
 .logout-btn {
   width: 100%;
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 12px 14px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
-  background: rgba(239, 68, 68, 0.15);
+  background: rgba(239, 68, 68, 0.1);
   color: #f87171;
   font-size: 14px;
-  transition: 0.3s;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.logout-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(239, 68, 68, 0.15), transparent);
+  transition: left 0.5s ease;
+}
+
+.logout-btn:hover::before {
+  left: 100%;
 }
 
 .logout-btn:hover {
-  background: rgba(239, 68, 68, 0.25);
-  transform: translateX(4px);
-}
-.sidebar-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  background: rgba(239, 68, 68, 0.2);
+  transform: translateX(6px) scale(1.02);
+  color: #fca5a5;
 }
 
-.sidebar-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 8px;
-  color: #cbd5e1;
-  text-decoration: none;
-  transition: 0.3s;
+.logout-btn:active {
+  transform: translateX(2px) scale(0.98);
 }
 
-.sidebar-link:hover {
-  background: rgba(59, 130, 246, 0.15);
-  color: white;
-  transform: translateX(4px);
-}
-
-.sidebar-link.active {
-  background: #3b82f6;
-  color: white;
-}
-
+/* Website Button - Pink */
 .website-btn {
   width: 100%;
   padding: 12px;
   border: none;
-  border-radius: 10px;
-  background: #2563eb;
+  border-radius: 12px;
+  background: #ec4899;
   color: white;
   cursor: pointer;
   font-weight: 600;
   display: flex;
+  align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.website-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.website-btn:hover::before {
+  left: 100%;
 }
 
 .website-btn:hover {
-  background: #1d4ed8;
+  background: #db2777;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(236, 72, 153, 0.3);
+}
+
+.website-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: -260px;
+    top: 0;
+    z-index: 1000;
+    transition: left 0.3s ease;
+  }
+  
+  .sidebar.open {
+    left: 0;
+  }
 }
