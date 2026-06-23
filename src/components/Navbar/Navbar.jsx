@@ -187,7 +187,27 @@ function Navbar() {
 
             {/* ADMIN LOGIN */}
 
-            
+            {!isAdmin && (
+              <Link
+                to="/admin-login"
+                className="
+                px-4
+                py-2
+                rounded-full
+                bg-gradient-to-r
+                from-yellow-500
+                to-orange-500
+                text-white
+                font-semibold
+                text-sm
+                shadow-md
+                hover:scale-105
+                transition
+                "
+              >
+                Admin Login
+              </Link>
+            )}
 
             {/* LOGOUT */}
 
