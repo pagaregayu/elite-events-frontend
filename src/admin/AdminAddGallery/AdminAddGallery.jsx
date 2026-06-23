@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import API from "../../services/api";
 import { 
@@ -22,6 +23,8 @@ function AdminAddGallery() {
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [galleryItems, setGalleryItems] = useState([]);
+  const [loadingGallery, setLoadingGallery] = useState(true);
 
   const categories = [
     "Wedding",
@@ -69,6 +72,45 @@ function AdminAddGallery() {
     }
   };
 
+
+  const fetchGallery = async () => {
+  try {
+    const response = await API.get("/gallery");
+    setGalleryItems(response.data);
+  } catch (error) {
+    console.error("Error fetching gallery:", error);
+  } finally {
+    setLoadingGallery(false);
+  }
+};
+
+const handleDelete = async (id) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this item?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+    await API.delete(`/gallery/${id}`);
+
+    setGalleryItems((prev) =>
+      prev.filter((item) => item.id !== id)
+    );
+
+    alert("Deleted Successfully");
+  } catch (error) {
+    console.error(error);
+    alert("Delete Failed");
+  }
+};
+
+useEffect(() => {
+  fetchGallery();
+}, []);
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -91,6 +133,8 @@ function AdminAddGallery() {
           "Content-Type": "multipart/form-data"
         }
       });
+
+      await fetchGallery(); 
 
       setSuccess(true);
       setTitle("");
@@ -363,6 +407,60 @@ function AdminAddGallery() {
               </div>
             </div>
           </motion.div>
+
+          {/* Gallery Items */}
+<motion.div
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ delay: 0.5 }}
+  className="mt-10"
+>
+  <h2 className="text-2xl font-bold text-white mb-6">
+    Uploaded Gallery Items
+  </h2>
+
+  {loadingGallery ? (
+    <div className="text-center text-gray-400">
+      Loading Gallery...
+    </div>
+  ) : galleryItems.length === 0 ? (
+    <div className="text-center text-gray-500">
+      No Gallery Items Found
+    </div>
+  ) : (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {galleryItems.map((item) => (
+        <div
+          key={item.id}
+          className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden"
+        >
+          <img
+            src={item.mediaUrl}
+            alt={item.title}
+            className="w-full h-48 object-cover"
+          />
+
+          <div className="p-4">
+            <h3 className="text-white font-semibold">
+              {item.title}
+            </h3>
+
+            <p className="text-gray-400 text-sm">
+              {item.category}
+            </p>
+
+            <button
+              onClick={() => handleDelete(item.id)}
+              className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</motion.div>
         </div>
       </div>
     </div>

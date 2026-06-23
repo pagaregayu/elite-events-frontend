@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import API from "../../services/api";
 
 const EVENT_TYPES = ["Wedding", "Corporate", "Concert", "Private Party", "Birthday"];
@@ -15,6 +15,7 @@ export default function AdminAddHappyClients() {
   const [previews, setPreviews] = useState([null, null, null, null]);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [clients, setClients] = useState([]);
 
   function handleInput(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -37,6 +38,39 @@ export default function AdminAddHappyClients() {
     const p = [...previews]; p[i] = null; setPreviews(p);
   }
 
+  const fetchClients = async () => {
+  try {
+    const response = await API.get("/happy-clients");
+
+    console.log("Happy Clients Data:", response.data);
+
+    setClients(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const handleDelete = async (id) => {
+  if (!window.confirm("Delete this client?")) return;
+
+  try {
+    await API.delete(`/happy-clients/${id}`);
+
+    setClients((prev) =>
+      prev.filter((client) => client.id !== id)
+    );
+
+    alert("Deleted Successfully");
+  } catch (error) {
+    console.error(error);
+    alert("Delete Failed");
+  }
+};
+
+useEffect(() => {
+  fetchClients();
+}, []);
+
   async function handleSubmit(e) {
     e.preventDefault();
     if (!files[0]) {
@@ -58,6 +92,8 @@ export default function AdminAddHappyClients() {
       await API.post("/happy-clients/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+
+      await fetchClients();
       setSuccess(true);
       setForm({ clientName: "", eventName: "", eventType: "Wedding", rating: 5, review: "" });
       setFiles([null, null, null, null]);
@@ -272,6 +308,78 @@ export default function AdminAddHappyClients() {
           </button>
 
         </form>
+
+        <div style={{ marginTop: "40px" }}>
+  <h3 style={{ color: "#fff", marginBottom: "20px" }}>
+    Uploaded Happy Clients
+  </h3>
+
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fill,minmax(250px,1fr))",
+      gap: "20px",
+    }}
+  >
+    {clients.map((client) => (
+      <div
+        key={client.id}
+        style={{
+          background: "#1a1a1a",
+          borderRadius: "12px",
+          overflow: "hidden",
+          border: "1px solid #333",
+        }}
+      >
+        <img
+  src={
+    client.image1 ||
+    client.mediaUrl1 ||
+    client.mediaurl1 ||
+    (client.mediaItems && client.mediaItems[0]?.url)
+  }
+  alt={client.clientName}
+  onError={(e) => {
+    console.log("Image URL:", client);
+    e.target.src =
+      "https://via.placeholder.com/300x180?text=No+Image";
+  }}
+  style={{
+    width: "100%",
+    height: "180px",
+    objectFit: "cover",
+    display: "block",
+  }}
+/>
+
+        <div style={{ padding: "15px" }}>
+          <h4 style={{ color: "#fff", marginBottom: "8px" }}>
+            {client.clientName}
+          </h4>
+
+          <p style={{ color: "#aaa", marginBottom: "12px" }}>
+            {client.eventType}
+          </p>
+
+          <button
+            onClick={() => handleDelete(client.id)}
+            style={{
+              width: "100%",
+              background: "red",
+              color: "#fff",
+              border: "none",
+              padding: "10px",
+              borderRadius: "8px",
+              cursor: "pointer",
+            }}
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
       </div>
     </div>
   );

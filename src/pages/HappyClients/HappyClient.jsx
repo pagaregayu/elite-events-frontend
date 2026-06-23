@@ -270,28 +270,6 @@ function ClientCard({ client, onDelete, isFallback, index }) {
           </div>
         )}
 
-        {/* Delete button — only for backend items */}
-        {!isFallback && (
-          <button
-            onClick={() => onDelete(client.id)}
-            style={{
-              backgroundColor: "#ff000020",
-              border: "1px solid #ff000050",
-              color: "#ff6b6b",
-              fontSize: "11px",
-              fontWeight: 600,
-              padding: "6px 16px",
-              borderRadius: "50px",
-              cursor: "pointer",
-              transition: "all 0.2s",
-              width: "100%",
-            }}
-            onMouseOver={(e) => { e.currentTarget.style.backgroundColor = "#ff000040"; }}
-            onMouseOut={(e) => { e.currentTarget.style.backgroundColor = "#ff000020"; }}
-          >
-            Delete
-          </button>
-        )}
       </div>
     </motion.div>
   );

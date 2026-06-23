@@ -62,6 +62,7 @@ export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [lightbox, setLightbox] = useState(null);
   const [hoveredId, setHoveredId] = useState(null);
+  const isAdmin = localStorage.getItem("adminLoggedIn") === "true";
 
   useEffect(() => {
     fetchGallery();
@@ -267,9 +268,12 @@ export default function Gallery() {
                     </h3>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                       <span style={{ color: "#ffffff60", fontSize: "12px" }}>{item.category}</span>
-                      {!isFallback && (
+                      {isAdmin && !isFallback && (
                         <button
-                          onClick={(e) => { e.stopPropagation(); handleDelete(item.id); }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(item.id);
+                          }}
                           style={{
                             backgroundColor: "#ff000030",
                             border: "1px solid #ff000060",
@@ -281,8 +285,12 @@ export default function Gallery() {
                             cursor: "pointer",
                             transition: "all 0.2s",
                           }}
-                          onMouseOver={(e) => { e.currentTarget.style.backgroundColor = "#ff000060"; }}
-                          onMouseOut={(e) => { e.currentTarget.style.backgroundColor = "#ff000030"; }}
+                          onMouseOver={(e) => {
+                            e.currentTarget.style.backgroundColor = "#ff000060";
+                          }}
+                          onMouseOut={(e) => {
+                            e.currentTarget.style.backgroundColor = "#ff000030";
+                          }}
                         >
                           Delete
                         </button>
